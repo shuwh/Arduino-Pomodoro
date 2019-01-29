@@ -73,6 +73,7 @@ void LED::periodBlink(unsigned int pulseWidth, byte blinkTimes, unsigned int per
   {
     this->resetBlink();
     this->prevPeriod = curtTime;
+    this->prevBlinkTime = curtTime - (pulseWidth + 10); // sync  on/off period with blink period
   }
   this->blink(pulseWidth, blinkTimes);
 }
