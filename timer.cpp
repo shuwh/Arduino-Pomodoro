@@ -32,7 +32,7 @@ void Timer::run() {
   this.timer++;
 }
 
-void Timer::reset_timer() {
+void Timer::reset() {
   this.setTimer(0);
 }
 

@@ -8,8 +8,8 @@ class Motor {
   public:
     Motor(int pin);
     ~Motor();
-    void startMotor();
-    void stopMotor();
+    void start();
+    void stop();
 };
 
 #endif

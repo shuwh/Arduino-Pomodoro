@@ -5,7 +5,7 @@
 #include "Arduino.h"
 
 
-void pin_setup() {
+void hardwareSetup() {
   // Input Initialize
   pinMode(timePin, INPUT);
 

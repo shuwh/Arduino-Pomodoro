@@ -12,11 +12,11 @@ Motor::~Motor() {
   pinMode(this.motorPin, INPUT);
 }
 
-void Motor::startMotor() {
+void Motor::start() {
   digitalWrite(this.motorPin, HIGH);
 }
 
-void Motor::stopMotor() {
+void Motor::stop() {
   digitalWrite(this.motorPin, LOW);
 }
 

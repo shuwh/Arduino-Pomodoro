@@ -21,6 +21,6 @@ const int snooze_button_pin = 12;
 Button* main_button;
 Button* snooze_button;
 
-void pin_setup();
+void hardwareSetup();
 
 #endif

@@ -16,7 +16,7 @@ class Timer {
     unsigned long getThreshold();
     void setThreshold(unsigned long threshold);
     void run();
-    void reset_timer();
+    void reset();
     void readTimeSetting(int timePin);
 };
 

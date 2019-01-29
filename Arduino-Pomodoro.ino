@@ -9,7 +9,7 @@
 
 void setup() {
   // Library Setup 
-  pin_setup();
+  hardwareSetup();
 
   // Serial Initialize
   Serial.begin(9600);
@@ -25,15 +25,15 @@ void setup() {
 void loop() {
  switch (state) {
   case IDEL:
-    led_power_on();
-    work_time_threshold = read_time_setting(timePin);
+    // led_power_on();
+    workTimer -> readTimeSetting(timePin);
     if (is_start_button_pressed()) {
       state = TIME_RUNNING;
     }
     break;
   case TIME_RUNNING:
-    led_timer_running();
-    timer_running()
+    // led_timer_running();
+    workTimer -> run();
     if (is_pause_button_pressed()) {
       state = IDLE;
     } else if (is_preset_time_reached()) {
@@ -45,7 +45,8 @@ void loop() {
     }
     break;
   case VIBRATING:
-    start_motor();
+    motor -> start();
+    vibrateTimer -> run();
     if (is_walk_button_pressed()) {
       state = WALKING;
     } else if (is_snooze_button_pressed()) {
@@ -57,9 +58,9 @@ void loop() {
     }
     break;
   case WALKING:
-    led_walking();
-    stop_motor()
-    reset_timer();
+    motor -> stop();
+    workTimer -> reset();
+    vibrateTimer -> reset();
     state = IDLE;
     break;
   case SNOOZING:
