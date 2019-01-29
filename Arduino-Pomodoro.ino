@@ -16,7 +16,7 @@ void setup() {
   Serial.println("Initialize Counter");
 
   // State initialize
-  state = 0;
+  state = IDEL;
   workTimer = new Timer(25*60, 1000);
   vibrateTimer = new Timer(1*60, 1000);
   snoozeTimer = new Timer(5*60, 1000);
@@ -64,13 +64,13 @@ void loop() {
     state = IDLE;
     break;
   case SNOOZING:
-    stop_motor();
-    reset_timer();
+    motor -> stop();
+    snoozeTimer -> reset();
+    vibrateTimer -> reset();
     state = SNOOZED; 
     break;
   case SNOOZED:
-    led_snoozed();
-    timer_running();
+    snoozeTimer -> run();
     if (is_snoozed_time_reached()) {
       state = VIBRATING;
     } else {
