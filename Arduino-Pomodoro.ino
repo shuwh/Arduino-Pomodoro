@@ -1,0 +1,80 @@
+// include all the required files
+#include "param.h"
+#include "condition.h"
+#include "led.h"
+#include "utility.h"
+#include "pin.h"
+#include "button.h"
+
+
+void setup() {
+  // Library Setup 
+  pin_setup();
+
+  // Serial Initialize
+  Serial.begin(9600);
+  Serial.println("Initialize Counter");
+
+  // State initialize
+  state = 0;
+  workTimer = new Timer(25*60, 1000);
+  vibrateTimer = new Timer(1*60, 1000);
+  snoozeTimer = new Timer(5*60, 1000);
+}
+
+void loop() {
+ switch (state) {
+  case IDEL:
+    led_power_on();
+    work_time_threshold = read_time_setting(timePin);
+    if (is_start_button_pressed()) {
+      state = TIME_RUNNING;
+    }
+    break;
+  case TIME_RUNNING:
+    led_timer_running();
+    timer_running()
+    if (is_pause_button_pressed()) {
+      state = IDLE;
+    } else if (is_preset_time_reached()) {
+      state = VIBRATING;
+    } else if (is_time_setting_changed()) {
+      state = IDLE;
+    } else {
+      state = TIME_RUNNING;
+    }
+    break;
+  case VIBRATING:
+    start_motor();
+    if (is_walk_button_pressed()) {
+      state = WALKING;
+    } else if (is_snooze_button_pressed()) {
+      state = SNOOZING;
+    } else if (is_vibrating_overtime()) {
+      state = WALKING;
+    } else {
+      state = VIBRATING;
+    }
+    break;
+  case WALKING:
+    led_walking();
+    stop_motor()
+    reset_timer();
+    state = IDLE;
+    break;
+  case SNOOZING:
+    stop_motor();
+    reset_timer();
+    state = SNOOZED; 
+    break;
+  case SNOOZED:
+    led_snoozed();
+    timer_running();
+    if (is_snoozed_time_reached()) {
+      state = VIBRATING;
+    } else {
+      state = SNOOZED;
+    }
+    break;
+ }
+}
