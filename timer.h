@@ -21,6 +21,7 @@ public:
   void reset();
   void readTimeSetting(int timePin);
   bool isOvertime();
+  bool isThresholdChanged(int timePin);
 };
 
 #endif

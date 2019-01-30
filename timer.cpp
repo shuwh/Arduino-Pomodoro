@@ -65,3 +65,10 @@ bool Timer::isOvertime()
   this->run();
   return this->getTimer() >= this->getThreshold();
 }
+
+bool Timer::isThresholdChanged(int timePin)
+{
+  unsigned int old = this->getThreshold();
+  this->readTimeSetting(timePin);
+  return old != this->getThreshold();
+}
