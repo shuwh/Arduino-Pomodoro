@@ -25,6 +25,7 @@ public:
   void blink(unsigned int pulseWidth, byte blinkTimes);
   void resetBlink();
   void periodBlink(unsigned int pulseWidth, byte blinkTimes, unsigned int period);
+  // the minimum pulseWidth is 100ms, period should larger than pulseWidth*blinkTimes*2
 
   void powerOn();
   void timerRunning();

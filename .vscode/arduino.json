@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "test\\test_led\\test_led.ino",
+    "sketch": "test\\test_timer\\test_timer.ino",
     "port": "COM3"
 }

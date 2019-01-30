@@ -17,5 +17,5 @@ void loop()
   // led->off();
   // delay(1000);
 
-  led2->periodBlink(200, 3, 3500);
+  led2->periodBlink(10, 3, 2000);
 }
