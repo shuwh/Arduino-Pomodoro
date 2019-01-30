@@ -1,14 +1,15 @@
 // include all the required files
-#include "param.h"
 #include "condition.h"
-#include "led.h"
-#include "utility.h"
 #include "pin.h"
 #include "button.h"
+#include "led.h"
+#include "motor.h"
+#include "param.h"
+#include "timer.h"
 
-
-void setup() {
-  // Library Setup 
+void setup()
+{
+  // Library Setup
   hardwareSetup();
 
   // Serial Initialize
@@ -16,66 +17,86 @@ void setup() {
   Serial.println("Initialize Counter");
 
   // State initialize
-  state = IDEL;
-  workTimer = new Timer(25*60, 1000);
-  vibrateTimer = new Timer(1*60, 1000);
-  snoozeTimer = new Timer(5*60, 1000);
+  state = IDLE;
+  workTimer = new Timer(25 * 60, 1000);
+  vibrateTimer = new Timer(1 * 60, 1000);
+  snoozeTimer = new Timer(5 * 60, 1000);
 }
 
-void loop() {
- switch (state) {
-  case IDEL:
+void loop()
+{
+  switch (state)
+  {
+  case IDLE:
     // led_power_on();
-    workTimer -> readTimeSetting(timePin);
-    if (is_start_button_pressed()) {
+    workTimer->readTimeSetting(timePin);
+    if (is_start_button_pressed())
+    {
       state = TIME_RUNNING;
     }
     break;
   case TIME_RUNNING:
     // led_timer_running();
-    workTimer -> run();
-    if (is_pause_button_pressed()) {
+    workTimer->run();
+    if (is_pause_button_pressed())
+    {
       state = IDLE;
-    } else if (is_preset_time_reached()) {
+    }
+    else if (is_preset_time_reached())
+    {
       state = VIBRATING;
-    } else if (is_time_setting_changed()) {
+    }
+    else if (is_time_setting_changed())
+    {
       state = IDLE;
-    } else {
+    }
+    else
+    {
       state = TIME_RUNNING;
     }
     break;
   case VIBRATING:
-    motor -> start();
-    vibrateTimer -> run();
-    if (is_walk_button_pressed()) {
+    motor->start();
+    vibrateTimer->run();
+    if (is_walk_button_pressed())
+    {
       state = WALKING;
-    } else if (is_snooze_button_pressed()) {
+    }
+    else if (is_snooze_button_pressed())
+    {
       state = SNOOZING;
-    } else if (is_vibrating_overtime()) {
+    }
+    else if (is_vibrating_overtime())
+    {
       state = WALKING;
-    } else {
+    }
+    else
+    {
       state = VIBRATING;
     }
     break;
   case WALKING:
-    motor -> stop();
-    workTimer -> reset();
-    vibrateTimer -> reset();
+    motor->stop();
+    workTimer->reset();
+    vibrateTimer->reset();
     state = IDLE;
     break;
   case SNOOZING:
-    motor -> stop();
-    snoozeTimer -> reset();
-    vibrateTimer -> reset();
-    state = SNOOZED; 
+    motor->stop();
+    snoozeTimer->reset();
+    vibrateTimer->reset();
+    state = SNOOZED;
     break;
   case SNOOZED:
-    snoozeTimer -> run();
-    if (is_snoozed_time_reached()) {
+    snoozeTimer->run();
+    if (is_snoozed_time_reached())
+    {
       state = VIBRATING;
-    } else {
+    }
+    else
+    {
       state = SNOOZED;
     }
     break;
- }
+  }
 }

@@ -1,6 +1,16 @@
-#include "pin.h"
-#include "param.h"
+// #include "pin.h"
+// #include "param.h"
+#include "button.h"
+#include "timer.h"
 #include "Arduino.h"
+
+extern Button *main_button;
+extern Button *snooze_button;
+extern const int timePin;
+
+extern Timer *workTimer;
+extern Timer *vibrateTimer;
+extern Timer *snoozeTimer;
 
 bool is_start_button_pressed()
 {
@@ -29,7 +39,7 @@ bool is_walk_button_pressed()
 
 bool is_snooze_button_pressed()
 {
-	return snooze_button.isRiseEdge();
+	return snooze_button->isRiseEdge();
 }
 
 bool is_vibrating_overtime()

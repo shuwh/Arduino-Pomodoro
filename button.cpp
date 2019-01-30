@@ -1,35 +1,43 @@
 #include "button.h"
 #include "Arduino.h"
 
-Button::Button(byte pin, bool lastButtonState=LOW, bool buttonState=LOW) {
+Button::Button(byte pin, bool lastButtonState, bool buttonState)
+{
 	this->pin = pin;
 	this->lastButtonState = lastButtonState;
 	this->buttonState = buttonState;
 	this->lastDebounceTime = 0;
 }
 
-Button::~Button() {
+Button::~Button()
+{
 	disattach();
 }
 
-void Button::disattach() {
+void Button::disattach()
+{
 	digitalWrite(pin, LOW);
-    pinMode(pin, INPUT);
+	pinMode(pin, INPUT);
 }
 
-bool Button::isRiseEdge() {
+bool Button::isRiseEdge()
+{
 	bool res = false;
-	unsigned long debounceDelay = 50; 
+	unsigned long debounceDelay = 50;
 	int reading = digitalRead(pin);
 
-	if (reading != lastButtonState) {
+	if (reading != lastButtonState)
+	{
 		lastDebounceTime = millis();
 	}
 
-	if (abs(millis() - lastDebounceTime) > debounceDelay) {
-		if (reading != buttonState) {
+	if (abs(millis() - lastDebounceTime) > debounceDelay)
+	{
+		if (reading != buttonState)
+		{
 			buttonState = reading;
-			if (buttonState == HIGH) {
+			if (buttonState == HIGH)
+			{
 				res = true;
 			}
 		}
@@ -38,19 +46,24 @@ bool Button::isRiseEdge() {
 	return res;
 }
 
-bool Button::isFallEdge() {
+bool Button::isFallEdge()
+{
 	bool res = false;
-	unsigned long debounceDelay = 50; 
+	unsigned long debounceDelay = 50;
 	int reading = digitalRead(pin);
 
-	if (reading != lastButtonState) {
+	if (reading != lastButtonState)
+	{
 		lastDebounceTime = millis();
 	}
 
-	if (abs(millis() - lastDebounceTime) > debounceDelay) {
-		if (reading != buttonState) {
+	if (abs(millis() - lastDebounceTime) > debounceDelay)
+	{
+		if (reading != buttonState)
+		{
 			buttonState = reading;
-			if (buttonState == LOW) {
+			if (buttonState == LOW)
+			{
 				res = true;
 			}
 		}

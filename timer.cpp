@@ -1,7 +1,7 @@
 #include "timer.h"
 #include "Arduino.h"
 
-Timer::Timer(unsigned int threshold, unsigned int step = 1000)
+Timer::Timer(unsigned int threshold, unsigned int step)
 {
   this->timer = 0;
   this->threshold = threshold;
