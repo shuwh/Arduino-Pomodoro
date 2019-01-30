@@ -50,7 +50,8 @@ void Timer::reset()
 
 void Timer::readTimeSetting(int timePin)
 {
-  if (timePin == HIGH)
+  bool timePinState = digitalRead(timePin);
+  if (timePinState == HIGH)
   {
     this->setThreshold(25 * 60);
   }

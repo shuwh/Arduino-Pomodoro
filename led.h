@@ -28,6 +28,7 @@ public:
   // the minimum pulseWidth is 100ms, period should larger than pulseWidth*blinkTimes*2
 
   void powerOn();
+  void powerOff();
   void timerRunning();
   void snoozed();
   void walking();

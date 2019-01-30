@@ -79,3 +79,28 @@ void LED::periodBlink(unsigned int pulseWidth, byte blinkTimes, unsigned int per
   }
   this->blink(pulseWidth, blinkTimes);
 }
+
+void LED::powerOn()
+{
+  this->on();
+}
+
+void LED::powerOff()
+{
+  this->off();
+}
+
+void LED::timerRunning()
+{
+  this->periodBlink(200, 1, 400);
+}
+
+void LED::walking()
+{
+  this->periodBlink(400, 1, 800);
+}
+
+void LED::snoozed()
+{
+  this->periodBlink(200, 2, 2500);
+}

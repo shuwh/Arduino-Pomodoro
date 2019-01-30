@@ -1,25 +1,33 @@
 #ifndef _PIN_H_
 #define _PIN_H_
 
-#include "button.h"
-#include "motor.h"
-#include "led.h"
+// #include "button.h"
+// #include "motor.h"
+// #include "led.h"
+// #include "Arduino.h"
 
-// Pin Defination
 const int timePin = 10;
 const int motorPin = 13;
-Motor* motor;
+// extern Motor *motor;
 
-// Led
 const int ledPin = 14;
-LED* led;
+// extern LED *led;
 
-
-// button and button state
 const int main_button_pin = 11;
 const int snooze_button_pin = 12;
-Button* main_button;
-Button* snooze_button;
+// extern Button *main_button;
+// extern Button *snooze_button;
+
+// class Pins
+// {
+// public:
+//   static const int timePin = 10;
+//   static const int motorPin = 13;
+//   static const int ledPin = 14;
+//   static const int main_button_pin = 11;
+//   static const int snooze_button_pin = 12;
+//   void hardwareSetup();
+// };
 
 void hardwareSetup();
 
