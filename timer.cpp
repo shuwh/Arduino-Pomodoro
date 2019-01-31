@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "param.h"
 #include "Arduino.h"
 
 Timer::Timer(unsigned int threshold, unsigned int step)
@@ -57,7 +58,7 @@ void Timer::readTimeSetting(int timePin)
   }
   else
   {
-    this->setThreshold(10 * 60);
+    this->setThreshold(15);
   }
 }
 

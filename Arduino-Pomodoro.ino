@@ -1,5 +1,8 @@
 // include all the required files
 // #include "condition.h"
+
+// #define _DEBUG_
+
 #include "pin.h"
 #include "button.h"
 #include "led.h"
@@ -8,6 +11,10 @@
 #include "timer.h"
 
 int state;
+
+const int worktime = 15; // seconds
+const int vibratetime = 10;
+const int snoozetime = 10;
 
 Timer *workTimer;
 Timer *vibrateTimer;
@@ -25,16 +32,18 @@ void setup()
   // Library Setup
   hardwareSetup();
 
+#ifdef _DEBUG_
   // Serial Initialize
   Serial.begin(9600);
   Serial.println("Initialize Counter");
+#endif
 
   // State initialize
   state = IDLE;
 
-  workTimer = new Timer(25 * 60, 1000);
-  vibrateTimer = new Timer(1 * 60, 1000);
-  snoozeTimer = new Timer(5 * 60, 1000);
+  workTimer = new Timer(worktime, 1000);
+  vibrateTimer = new Timer(vibratetime, 1000);
+  snoozeTimer = new Timer(snoozetime, 1000);
 
   main_button = new Button(main_button_pin, LOW, LOW);
   snooze_button = new Button(snooze_button_pin, LOW, LOW);
@@ -49,6 +58,9 @@ void loop()
   switch (state)
   {
   case IDLE:
+#ifdef _DEBUG_
+    Serial.println("IDLE");
+#endif
     led->powerOn();
     workTimer->readTimeSetting(timePin);
     if (is_start_button_pressed())
@@ -57,6 +69,13 @@ void loop()
     }
     break;
   case TIME_RUNNING:
+#ifdef _DEBUG_
+    Serial.println("TIME_RUNNING");
+    Serial.print("    Timer/Threshold: ");
+    Serial.print(workTimer->getTimer());
+    Serial.print("/");
+    Serial.println(workTimer->getThreshold());
+#endif
     led->timerRunning();
     workTimer->run();
     if (is_pause_button_pressed())
@@ -77,6 +96,13 @@ void loop()
     }
     break;
   case VIBRATING:
+#ifdef _DEBUG_
+    Serial.println("VIBRATING");
+    Serial.print("    Timer/Threshold: ");
+    Serial.print(vibrateTimer->getTimer());
+    Serial.print("/");
+    Serial.println(vibrateTimer->getThreshold());
+#endif
     led->powerOff();
     motor->start();
     vibrateTimer->run();
@@ -98,6 +124,9 @@ void loop()
     }
     break;
   case WALKING:
+#ifdef _DEBUG_
+    Serial.println("WALKING");
+#endif
     led->walking();
     motor->stop();
     workTimer->reset();
@@ -105,12 +134,22 @@ void loop()
     state = IDLE;
     break;
   case SNOOZING:
+#ifdef _DEBUG_
+    Serial.println("SNOOZING");
+#endif
     motor->stop();
     snoozeTimer->reset();
     vibrateTimer->reset();
     state = SNOOZED;
     break;
   case SNOOZED:
+#ifdef _DEBUG_
+    Serial.println("SNOOZED");
+    Serial.print("    Timer/Threshold: ");
+    Serial.print(snoozeTimer->getTimer());
+    Serial.print("/");
+    Serial.println(snoozeTimer->getThreshold());
+#endif
     led->snoozed();
     snoozeTimer->run();
     if (is_snoozed_time_reached())

@@ -6,15 +6,15 @@
 // #include "led.h"
 // #include "Arduino.h"
 
-const int timePin = 10;
-const int motorPin = 13;
+const int timePin = 11;
+const int motorPin = 9;
 // extern Motor *motor;
 
-const int ledPin = 14;
+const int ledPin = 13;
 // extern LED *led;
 
-const int main_button_pin = 11;
-const int snooze_button_pin = 12;
+const int main_button_pin = 2;
+const int snooze_button_pin = 3;
 // extern Button *main_button;
 // extern Button *snooze_button;
 
