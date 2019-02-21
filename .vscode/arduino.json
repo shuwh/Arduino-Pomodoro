@@ -1,5 +1,5 @@
 {
-  "board": "arduino:avr:uno",
-  "sketch": "Arduino-Pomodoro.ino",
-  "port": "COM3"
+    "board": "arduino:avr:uno",
+    "sketch": "Arduino-Pomodoro.ino",
+    "port": "COM3"
 }

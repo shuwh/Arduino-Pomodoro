@@ -12,9 +12,9 @@
 
 int state;
 
-const int worktime = 15; // seconds
-const int vibratetime = 10;
-const int snoozetime = 10;
+const int worktime = 20 * 60; // seconds
+const int vibratetime = 1 * 60;
+const int snoozetime = 5 * 60;
 
 Timer *workTimer;
 Timer *vibrateTimer;
