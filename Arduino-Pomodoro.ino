@@ -156,6 +156,10 @@ void loop()
     {
       state = VIBRATING;
     }
+    else if (is_walk_button_pressed())
+    {
+      state = WALKING;
+    }
     else
     {
       state = SNOOZED;
