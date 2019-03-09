@@ -54,11 +54,11 @@ void Timer::readTimeSetting(int timePin)
   bool timePinState = digitalRead(timePin);
   if (timePinState == HIGH)
   {
-    this->setThreshold(20 * 60);
+    this->setThreshold(WORKINGTIME1);
   }
   else
   {
-    this->setThreshold(15 * 60);
+    this->setThreshold(WORKINGTIME2);
   }
 }
 
