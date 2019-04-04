@@ -9,6 +9,7 @@
 #include "motor.h"
 #include "param.h"
 #include "timer.h"
+#include "batteryMonitor.h"
 
 int state;
 
@@ -26,6 +27,8 @@ Button *snooze_button;
 Motor *motor;
 
 LED *led;
+
+BatteryMonitor *batteryMonitor;
 
 void setup()
 {
@@ -51,6 +54,8 @@ void setup()
   motor = new Motor(motorPin);
 
   led = new LED(ledPin, LOW);
+
+  batteryMonitor = new BatteryMonitor(batteryEnablePin, batteryMonitorPin, batteryLEDPin, batteryMonitorPeriod);
 }
 
 void loop()
@@ -63,6 +68,7 @@ void loop()
 #endif
     led->powerOn();
     workTimer->readTimeSetting(timePin);
+    batteryMonitor->checkBatteryStatus();
     if (is_start_button_pressed())
     {
       state = TIME_RUNNING;

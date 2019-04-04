@@ -15,6 +15,10 @@ const int ledPin = 13;
 
 const int main_button_pin = 2;
 const int snooze_button_pin = 3;
+
+const int batteryEnablePin = 6;
+const int batteryMonitorPin = 7;
+const int batteryLEDPin = 12;
 // extern Button *main_button;
 // extern Button *snooze_button;
 
